@@ -17,7 +17,8 @@ class DataEntity {
 
   @override
   String toString() {
-    /// 使用时： type 'List<dynamic>' is not a subtype of type 'List<String>' in type cast
-    return 'DataEntity{shop: $shop, tmall: $tmall, result: ${result.elementAt(2)}}';
+    // FIXME json数据中 array嵌套结构如何解析？
+    /// 使用 result.elementAt(0) 时： type 'List<dynamic>' is not a subtype of type 'List<String>' in type cast
+    return 'DataEntity{shop: $shop, tmall: $tmall, result: ${result.length}}';
   }
 }
