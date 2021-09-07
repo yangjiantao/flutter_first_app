@@ -6,15 +6,16 @@ import 'package:flutter_first_app/http/DataEntity.dart';
 
 /// 网络库 示例代码
 ///
+/// json反序列化操作放到后台线程处理（compute） https://flutter.dev/docs/cookbook/networking/background-parsing
+
+const testUrl = "https://suggest.taobao.com/sug?code=utf-8&q=nike&callback=cb";
 
 // 程序入口函数
 void main() {
   print('test hello dart.');
   // httpGet();
-  getRequestByDio();
+  getRequestByDio(testUrl);
 }
-
-const testUrl = "https://suggest.taobao.com/sug?code=utf-8&q=nike&callback=cb";
 
 // HttpClient 是 dart:io 库中提供的网络请求类，实现了基本的网络编程功能。
 // use 内置网络库 dart.io HttpClient
@@ -39,11 +40,9 @@ httpGet() async {
 
 // 三方库 dio https://github.com/flutterchina/dio
 
-void getRequestByDio() async {
+void getRequestByDio(String testUrl) async {
   Dio dio = Dio();
-
   var response = await dio.get(testUrl);
-
   if (response.statusCode == HttpStatus.ok) {
     var rawStr = response.data.toString();
     print("rawString $rawStr");
