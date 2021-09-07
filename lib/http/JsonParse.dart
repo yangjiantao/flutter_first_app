@@ -1,4 +1,3 @@
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
@@ -14,13 +13,14 @@ Future<List<User>?> fetchUserData() async {
   // request test data
   const testUrl = "https://jsonplaceholder.typicode.com/users";
   Dio dio = Dio();
-  Response<String> response = await dio.get(testUrl);
+  var response = await dio.get(testUrl);
   if (response.statusCode == HttpStatus.ok) {
+    /// Transform the response data to JSON object only when the
+    /// content-type of response is "application/json" .
+    // 默认返回的是 jsonObject , 以上是dio内部注释
     var rawStr = response.data;
     print("rawString $rawStr");
-    var jsonMap =
-    json.decode(rawStr!).cast<Map<String, dynamic>>(); // 将字符串解码成 Map 对象
-    return jsonMap.map<User>((item) => User.fromJson(item)).toList();
+    return rawStr.map<User>((item) => User.fromJson(item)).toList();
   } else {
     print("Error: ${response.statusCode}");
   }
