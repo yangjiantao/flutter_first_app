@@ -1,5 +1,4 @@
 import 'package:flutter_first_app/entity/Address.dart';
-
 /// 1. 导包
 import 'package:json_annotation/json_annotation.dart';
 
@@ -9,7 +8,7 @@ import 'package:json_annotation/json_annotation.dart';
 part 'User.g.dart'; // 2. 引入 generated 生成的代码
 
 /// 3. 添加注解
-@JsonSerializable()
+@JsonSerializable(explicitToJson: true)
 class User {
   final int id;
   final String name;
