@@ -4,6 +4,8 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:flutter_first_app/http/DataEntity.dart';
 
+/// Created by Jiantao.Yang on 2021/9/5.
+///
 /// 网络库 示例代码
 ///
 /// json反序列化操作放到后台线程处理（compute） https://flutter.dev/docs/cookbook/networking/background-parsing
