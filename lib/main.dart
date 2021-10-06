@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_first_app/widget/pageview_simple.dart';
+import 'package:flutter_first_app/widget/bottom_nav_bar_simple.dart';
 
 void main() {
   runApp(MyApp());
@@ -23,8 +23,8 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      // home: MyHomePage(title: 'Flutter Demo Home Page'),
-      home: PageViewSimple(),
+      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      // home: PageViewSimple(),
     );
   }
 }
@@ -102,6 +102,8 @@ class _MyHomePageState extends State<MyHomePage> {
               '$_counter',
               style: Theme.of(context).textTheme.headline4,
             ),
+            // 测试 widget
+            CustomBottomNavigationBar(),
           ],
         ),
       ),
