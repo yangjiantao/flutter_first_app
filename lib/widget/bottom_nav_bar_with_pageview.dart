@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_first_app/widget/bottom_nav_bar_simple.dart';
 import 'package:flutter_first_app/widget/pageview_item.dart';
 
 /// bottomNavBar + PageView 简单用法
@@ -47,7 +48,6 @@ class _BottomNavigationBarWithPageViewState extends State<BottomNavigationBarWit
   @override
   Widget build(BuildContext context) {
     return Material(
-        child: Container(
       child: Column(
         children: <Widget>[
           Container(
@@ -58,7 +58,7 @@ class _BottomNavigationBarWithPageViewState extends State<BottomNavigationBarWit
               controller: _controller,
               children: iconsMap.keys
                   .map((key) => Center(
-                        child: PageViewItem(title: key),
+                        child: key == "手册" ? CustomBottomNavigationBar() : PageViewItem(title: key),
                       ))
                   .toList(),
             ),
@@ -66,7 +66,7 @@ class _BottomNavigationBarWithPageViewState extends State<BottomNavigationBarWit
           _buildBottomNavigationBar()
         ],
       ),
-    ));
+    );
   }
 
   BottomNavigationBar _buildBottomNavigationBar() {
@@ -77,13 +77,15 @@ class _BottomNavigationBarWithPageViewState extends State<BottomNavigationBarWit
         },
         currentIndex: _position,
         elevation: 1,
+        // backgroundColor: Colors.white,
         type: BottomNavigationBarType.fixed,
-        // fixedColor: Colors.white,
+        fixedColor: _colors[_position],
         selectedLabelStyle: TextStyle(fontWeight: FontWeight.bold),
-        // showSelectedLabels: true,
-        // showUnselectedLabels: false,
+        showSelectedLabels: true,
+        showUnselectedLabels: false,
         items: iconsMap.keys
-            .map((key) => BottomNavigationBarItem(
+            .map((key) =>
+            BottomNavigationBarItem(
                 label: key, icon: Icon(iconsMap[key]), backgroundColor: _colors[_position]))
             .toList());
   }
