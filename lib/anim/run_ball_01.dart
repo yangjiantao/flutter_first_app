@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_first_app/utils/color_utils.dart';
 
@@ -12,15 +14,14 @@ class Ball {
   Color color; // 颜色
   double r; // 小球半径
 
-  Ball(
-      {this.x = 0,
-      this.y = 0,
-      required this.color,
-      this.r = 10,
-      this.aX = 0,
-      this.aY = 0,
-      this.vX = 0,
-      this.vY = 0});
+  Ball({this.x = 0,
+    this.y = 0,
+    required this.color,
+    this.r = 10,
+    this.aX = 0,
+    this.aY = 0,
+    this.vX = 0,
+    this.vY = 0});
 }
 
 class RunBallWidget extends StatefulWidget {
@@ -33,8 +34,11 @@ class RunBallWidget extends StatefulWidget {
 }
 
 class _RunBallWidgetState extends State<RunBallWidget> with SingleTickerProviderStateMixin {
-  var _ball = Ball(color: Colors.blueAccent, r: 10, aY: 1, vX: 2, vY: -2, x: 0.0, y: 0.0);
+  var _ball = Ball(color: Colors.blueAccent, r: 10, aY: 1, vX: 2, vY: -2, x: 75.0, y: 0.0);
   late AnimationController _controller;
+
+  // 起始角度
+  double t = 0.0;
 
   @override
   void initState() {
@@ -42,7 +46,7 @@ class _RunBallWidgetState extends State<RunBallWidget> with SingleTickerProvider
         //  创建AnimationController对象
         duration: Duration(seconds: 3),
         vsync: this)
-      ..addListener(_render); // 添加监听，执行渲染
+      ..addListener(_renderCircle); // 添加监听，执行渲染
     super.initState();
   }
 
@@ -65,6 +69,15 @@ class _RunBallWidgetState extends State<RunBallWidget> with SingleTickerProvider
         size: widget.size,
       ),
     );
+  }
+
+  // 做圆形运动
+  void _renderCircle() {
+    setState(() {
+      t += pi / 180;
+      _ball.x += cos(t);
+      _ball.y += sin(t);
+    });
   }
 
   void _render() {
