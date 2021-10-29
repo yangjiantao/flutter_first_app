@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_first_app/utils/color_utils.dart';
 
 class Ball {
   // 小球信息描述类
@@ -32,7 +33,7 @@ class RunBallWidget extends StatefulWidget {
 }
 
 class _RunBallWidgetState extends State<RunBallWidget> with SingleTickerProviderStateMixin {
-  var _ball = Ball(color: Colors.blueAccent, r: 10, aY: 0.1, vX: 2, vY: -2, x: 0.0, y: 0.0);
+  var _ball = Ball(color: Colors.blueAccent, r: 10, aY: 1, vX: 2, vY: -2, x: 0.0, y: 0.0);
   late AnimationController _controller;
 
   @override
@@ -69,8 +70,37 @@ class _RunBallWidgetState extends State<RunBallWidget> with SingleTickerProvider
   void _render() {
     setState(() {
       // 渲染方法，更新小球信息
-      _ball.x += 1;
-      _ball.y += 1;
+      _ball.x += _ball.vX; // 使用方向值，实现碰撞后反弹
+      _ball.y += _ball.vY;
+      _ball.vX += _ball.aX; // ➕加速度
+      _ball.vY += _ball.aY;
+      var height = widget.size.height;
+      var width = widget.size.width;
+
+      // 限定下边界
+      if (_ball.y > height - 2 * _ball.r) {
+        _ball.y = height - 2 * _ball.r;
+        _ball.vY = -_ball.vY; // 速度反向
+        _ball.color = ColorUtils.randomColor(); // 碰撞后颜色随机
+      }
+      // 限定上边界
+      if (_ball.y < 0) {
+        _ball.y = 0;
+        _ball.vY = -_ball.vY;
+        _ball.color = ColorUtils.randomColor(); // 碰撞后颜色随机
+      }
+      // 限定左边界
+      if (_ball.x < 0) {
+        _ball.x = 0;
+        _ball.vX = -_ball.vX;
+        _ball.color = ColorUtils.randomColor(); // 碰撞后颜色随机
+      }
+      // 限定右边界
+      if (_ball.x > width - 2 * _ball.r) {
+        _ball.x = width - 2 * _ball.r;
+        _ball.vX = -_ball.vX;
+        _ball.color = ColorUtils.randomColor(); // 碰撞后颜色随机
+      }
     });
   }
 }
