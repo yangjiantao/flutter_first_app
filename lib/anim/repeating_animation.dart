@@ -26,7 +26,7 @@ class RepeatingAnimationDemoState extends State<RepeatingAnimationDemo>
     _controller = AnimationController(duration: const Duration(seconds: 2), vsync: this)
       ..repeat(reverse: true);
 
-    _sizeAnim = IntTween(begin: 200, end: 160).animate(_controller);
+    _sizeAnim = IntTween(begin: 0, end: 50).animate(_controller);
     // _borderRadius = BorderRadiusTween(
     //   begin: BorderRadius.circular(100.0),
     //   end: BorderRadius.circular(0.0),
@@ -42,10 +42,11 @@ class RepeatingAnimationDemoState extends State<RepeatingAnimationDemo>
           animation: _sizeAnim,
           builder: (context, child) {
             return Stack(
+              alignment: Alignment.center,
               children: [
                 Container(
-                  width: _sizeAnim.value.toDouble(),
-                  height: _sizeAnim.value.toDouble(),
+                  width: 200 + _sizeAnim.value.toDouble(),
+                  height: 200 + _sizeAnim.value.toDouble(),
                   decoration:
                       BoxDecoration(color: Colors.black26, shape: BoxShape.circle, boxShadow: [
                     BoxShadow(
@@ -56,6 +57,9 @@ class RepeatingAnimationDemoState extends State<RepeatingAnimationDemo>
                     )
                   ]),
                 ),
+                Image.asset("images/playGo.png",
+                    width: 60 + _sizeAnim.value.toDouble(),
+                    height: 60 + _sizeAnim.value.toDouble()),
               ],
             );
           },
