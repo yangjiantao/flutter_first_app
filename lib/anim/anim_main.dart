@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_first_app/anim/run_ball_01.dart';
+import 'package:flutter_first_app/anim/run_ball_circle.dart';
 
 void main() => runApp(App());
 
@@ -12,7 +12,7 @@ class App extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       home: Scaffold(
-        body: Center(child: RunBallWidget()),
+        body: Center(child: RunCircleBallWidget()),
       ),
     );
   }

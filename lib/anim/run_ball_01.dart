@@ -27,14 +27,14 @@ class Ball {
 class RunBallWidget extends StatefulWidget {
   final Size size;
 
-  RunBallWidget({Key? key, this.size = const Size(300, 300)}) : super(key: key);
+  RunBallWidget({Key? key, this.size = const Size(500, 500)}) : super(key: key);
 
   @override
   _RunBallWidgetState createState() => _RunBallWidgetState();
 }
 
 class _RunBallWidgetState extends State<RunBallWidget> with SingleTickerProviderStateMixin {
-  var _ball = Ball(color: Colors.blueAccent, r: 10, aY: 1, vX: 2, vY: -2, x: 75.0, y: 0.0);
+  var _ball = Ball(color: Colors.blueAccent, r: 10, aY: 1, vX: 2, vY: -2, x: 150.0, y: 0.0);
   late AnimationController _controller;
 
   // 起始角度
@@ -48,6 +48,11 @@ class _RunBallWidgetState extends State<RunBallWidget> with SingleTickerProvider
         vsync: this)
       ..addListener(_renderCircle); // 添加监听，执行渲染
     super.initState();
+
+    // 正弦 30度 等于 0.5
+    // var degrees = 30;
+    // var radians = degrees * (pi/180);
+    // print(' result = ${sin(radians)}');
   }
 
   @override
@@ -71,12 +76,16 @@ class _RunBallWidgetState extends State<RunBallWidget> with SingleTickerProvider
     );
   }
 
+  int circleRadius = 200;
+
   // 做圆形运动
   void _renderCircle() {
     setState(() {
-      t += pi / 180;
-      _ball.x += cos(t);
-      _ball.y += sin(t);
+      t += pi / 180; // 每次增加1度
+      // _ball.x += cos(t);
+      // _ball.y += sin(t);
+      _ball.x = circleRadius + circleRadius * cos(t);
+      _ball.y = circleRadius + circleRadius * sin(t);
     });
   }
 
